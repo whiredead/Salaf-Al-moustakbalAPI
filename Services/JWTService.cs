@@ -1,10 +1,10 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using ProjectPfe.Models;
+using SalafAlmoustakbalAPI.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace ProjectPfe.Services
+namespace SalafAlmoustakbalAPI.Services
 {
     public class JWTService
     {

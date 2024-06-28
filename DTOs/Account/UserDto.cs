@@ -1,4 +1,4 @@
-﻿namespace ProjectPfe.DTOs.Account
+﻿namespace SalafAlmoustakbalAPI.DTOs.Account
 {
     public class UserDto
     {

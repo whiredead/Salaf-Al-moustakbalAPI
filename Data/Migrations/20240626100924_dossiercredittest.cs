@@ -5,25 +5,25 @@
 namespace SalafAlmoustakbalAPI.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class updateBar : Migration
+    public partial class dossiercredittest : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<bool>(
-                name: "hasChild",
-                table: "Bars",
-                type: "bit",
+            migrationBuilder.AddColumn<string>(
+                name: "test",
+                table: "Dossiers",
+                type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: "");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "hasChild",
-                table: "Bars");
+                name: "test",
+                table: "Dossiers");
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using ProjectPfe.DTOs;
-using ProjectPfe.Models;
-namespace ProjectPfe.Mapper
+using SalafAlmoustakbalAPI.DTOs;
+using SalafAlmoustakbalAPI.Models;
+namespace SalafAlmoustakbalAPI.Mapper
 {
     public class ApplicationMapper: Profile 
     {

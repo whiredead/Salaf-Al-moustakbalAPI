@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ProjectPfe.Models
+namespace SalafAlmoustakbalAPI.Models
 {
     public class User: IdentityUser
     {
@@ -20,8 +21,10 @@ namespace ProjectPfe.Models
         public String? Profession { get; set; }
 
         [Display(Name = "Date Naissance")]
-        [Required]
-        public DateTime DateNaissance { get; set; }
+        
+        public DateOnly? DateNaissance { get; set; }
+
+        public ICollection<Dossier> dossiers { get; }
 
 
     }

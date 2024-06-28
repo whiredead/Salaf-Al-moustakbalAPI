@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace ProjectPfe.Models
+namespace SalafAlmoustakbalAPI.Models
 {
     public class Bar
     {

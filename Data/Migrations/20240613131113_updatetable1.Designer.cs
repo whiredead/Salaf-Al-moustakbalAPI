@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SalafAlmoustakbalAPI.Data;
 
@@ -11,9 +12,11 @@ using SalafAlmoustakbalAPI.Data;
 namespace SalafAlmoustakbalAPI.Data.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    partial class IdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20240613131113_updatetable1")]
+    partial class updatetable1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,57 +186,62 @@ namespace SalafAlmoustakbalAPI.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("StatutOccupationLogementId")
-                        .HasColumnType("int");
-
                     b.Property<string>("cin")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("civilite")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("codeClient")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("codeImputation")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly?>("dateDelivrance")
+                    b.Property<DateOnly>("dateDelivrance")
                         .HasColumnType("date");
 
-                    b.Property<DateOnly?>("dateNaissance")
+                    b.Property<DateOnly>("dateNaissance")
                         .HasColumnType("date");
 
-                    b.Property<DateOnly?>("dateRelation")
+                    b.Property<DateOnly>("dateRelation")
                         .HasColumnType("date");
 
                     b.Property<int?>("domicileId")
                         .HasColumnType("int");
 
                     b.Property<string>("lieuNaissance")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("nom")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("nombreEnfants")
+                    b.Property<int>("nombreEnfants")
                         .HasColumnType("int");
 
                     b.Property<string>("prenom")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("sitFamiliale")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("statut_des")
+                    b.Property<string>("statutOccupationLogement")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("telephone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("StatutOccupationLogementId");
 
                     b.HasIndex("domicileId")
                         .IsUnique()
@@ -267,7 +275,9 @@ namespace SalafAlmoustakbalAPI.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("VilleId");
+                    b.HasIndex("VilleId")
+                        .IsUnique()
+                        .HasFilter("[VilleId] IS NOT NULL");
 
                     b.ToTable("Domiciles");
                 });
@@ -282,10 +292,6 @@ namespace SalafAlmoustakbalAPI.Data.Migrations
 
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("agence")
                         .IsRequired()
@@ -302,15 +308,14 @@ namespace SalafAlmoustakbalAPI.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("credit")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("credit")
+                        .HasColumnType("float");
 
-                    b.Property<DateOnly>("dateOp")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("dateOp")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateOnly>("derniereEcheance")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("derniereEcheance")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("differe")
                         .IsRequired()
@@ -320,15 +325,15 @@ namespace SalafAlmoustakbalAPI.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly>("echeance")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("echeance")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("periodicite")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly>("premiereEcheance")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("premiereEcheance")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("produit")
                         .IsRequired()
@@ -341,8 +346,6 @@ namespace SalafAlmoustakbalAPI.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Dossiers");
                 });
@@ -375,23 +378,6 @@ namespace SalafAlmoustakbalAPI.Data.Migrations
                     b.ToTable("Menus");
                 });
 
-            modelBuilder.Entity("SalafAlmoustakbalAPI.Models.StatutOccupationLogement", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("statut");
-                });
-
             modelBuilder.Entity("SalafAlmoustakbalAPI.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -411,7 +397,7 @@ namespace SalafAlmoustakbalAPI.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly?>("DateNaissance")
+                    b.Property<DateOnly>("DateNaissance")
                         .HasColumnType("date");
 
                     b.Property<string>("Email")
@@ -555,17 +541,11 @@ namespace SalafAlmoustakbalAPI.Data.Migrations
 
             modelBuilder.Entity("SalafAlmoustakbalAPI.Models.Client", b =>
                 {
-                    b.HasOne("SalafAlmoustakbalAPI.Models.StatutOccupationLogement", "statutOccupationLogement")
-                        .WithOne()
-                        .HasForeignKey("SalafAlmoustakbalAPI.Models.Client", "StatutOccupationLogementId");
-
                     b.HasOne("SalafAlmoustakbalAPI.Models.Domicile", "domicile")
                         .WithOne()
                         .HasForeignKey("SalafAlmoustakbalAPI.Models.Client", "domicileId");
 
                     b.Navigation("domicile");
-
-                    b.Navigation("statutOccupationLogement");
                 });
 
             modelBuilder.Entity("SalafAlmoustakbalAPI.Models.Domicile", b =>
@@ -585,15 +565,7 @@ namespace SalafAlmoustakbalAPI.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SalafAlmoustakbalAPI.Models.User", "user")
-                        .WithMany("dossiers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("client");
-
-                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("SalafAlmoustakbalAPI.Models.Menu", b =>
@@ -613,11 +585,6 @@ namespace SalafAlmoustakbalAPI.Data.Migrations
                 });
 
             modelBuilder.Entity("SalafAlmoustakbalAPI.Models.Client", b =>
-                {
-                    b.Navigation("dossiers");
-                });
-
-            modelBuilder.Entity("SalafAlmoustakbalAPI.Models.User", b =>
                 {
                     b.Navigation("dossiers");
                 });

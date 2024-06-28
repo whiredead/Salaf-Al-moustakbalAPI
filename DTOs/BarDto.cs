@@ -1,7 +1,6 @@
-﻿using ProjectPfe.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProjectPfe.DTOs
+namespace SalafAlmoustakbalAPI.DTOs
 {
     public class BarDto
     {

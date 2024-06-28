@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
-using ProjectPfe.Data;
-using ProjectPfe.Mapper;
-using ProjectPfe.Models;
-using ProjectPfe.Services;
+using SalafAlmoustakbalAPI.Data;
+using SalafAlmoustakbalAPI.Mapper;
+using SalafAlmoustakbalAPI.Models;
+using SalafAlmoustakbalAPI.Services;
 using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 

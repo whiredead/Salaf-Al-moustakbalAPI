@@ -1,0 +1,6 @@
+@SalafAlmoustakbalAPI_HostAddress = http://localhost:5051
+
+GET {{SalafAlmoustakbalAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

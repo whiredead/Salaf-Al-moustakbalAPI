@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProjectPfe.Data;
+using SalafAlmoustakbalAPI.Data;
 
 #nullable disable
 
-namespace ProjectPfe.data.Migrations
+namespace SalafAlmoustakbalAPI.Data.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20240502141558_createUser")]
-    partial class createUser
+    [Migration("20240613130454_table1")]
+    partial class table1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,7 +158,227 @@ namespace ProjectPfe.data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ProjectPfe.Models.User", b =>
+            modelBuilder.Entity("SalafAlmoustakbalAPI.Models.Bar", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("hasChild")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Bars");
+                });
+
+            modelBuilder.Entity("SalafAlmoustakbalAPI.Models.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("cin")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("civilite")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("codeClient")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("codeImputation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("dateDelivrance")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("dateNaissance")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("dateRelation")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("domicileId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("lieuNaissance")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nom")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("nombreEnfants")
+                        .HasColumnType("int");
+
+                    b.Property<string>("prenom")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("sitFamiliale")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("statutOccupationLogement")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("telephone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("domicileId")
+                        .IsUnique()
+                        .HasFilter("[domicileId] IS NOT NULL");
+
+                    b.ToTable("Clients");
+                });
+
+            modelBuilder.Entity("SalafAlmoustakbalAPI.Models.Domicile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("VilleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("adresse")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("codePostal")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("des_ville")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VilleId")
+                        .IsUnique()
+                        .HasFilter("[VilleId] IS NOT NULL");
+
+                    b.ToTable("Domiciles");
+                });
+
+            modelBuilder.Entity("SalafAlmoustakbalAPI.Models.Dossier", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("agence")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("assurance")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("cession")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("codeComptable")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("credit")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("dateOp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("derniereEcheance")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("differe")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("duree")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("echeance")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("periodicite")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("premiereEcheance")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("produit")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("reference")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("Dossiers");
+                });
+
+            modelBuilder.Entity("SalafAlmoustakbalAPI.Models.Menu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BarId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("HasChild")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ParentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BarId");
+
+                    b.ToTable("Menus");
+                });
+
+            modelBuilder.Entity("SalafAlmoustakbalAPI.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -251,6 +471,23 @@ namespace ProjectPfe.data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("SalafAlmoustakbalAPI.Models.ville", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Villes");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -262,7 +499,7 @@ namespace ProjectPfe.data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("ProjectPfe.Models.User", null)
+                    b.HasOne("SalafAlmoustakbalAPI.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -271,7 +508,7 @@ namespace ProjectPfe.data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("ProjectPfe.Models.User", null)
+                    b.HasOne("SalafAlmoustakbalAPI.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -286,7 +523,7 @@ namespace ProjectPfe.data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectPfe.Models.User", null)
+                    b.HasOne("SalafAlmoustakbalAPI.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -295,11 +532,61 @@ namespace ProjectPfe.data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("ProjectPfe.Models.User", null)
+                    b.HasOne("SalafAlmoustakbalAPI.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SalafAlmoustakbalAPI.Models.Client", b =>
+                {
+                    b.HasOne("SalafAlmoustakbalAPI.Models.Domicile", "domicile")
+                        .WithOne()
+                        .HasForeignKey("SalafAlmoustakbalAPI.Models.Client", "domicileId");
+
+                    b.Navigation("domicile");
+                });
+
+            modelBuilder.Entity("SalafAlmoustakbalAPI.Models.Domicile", b =>
+                {
+                    b.HasOne("SalafAlmoustakbalAPI.Models.ville", "ville")
+                        .WithOne()
+                        .HasForeignKey("SalafAlmoustakbalAPI.Models.Domicile", "VilleId");
+
+                    b.Navigation("ville");
+                });
+
+            modelBuilder.Entity("SalafAlmoustakbalAPI.Models.Dossier", b =>
+                {
+                    b.HasOne("SalafAlmoustakbalAPI.Models.Client", "client")
+                        .WithMany("dossiers")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("client");
+                });
+
+            modelBuilder.Entity("SalafAlmoustakbalAPI.Models.Menu", b =>
+                {
+                    b.HasOne("SalafAlmoustakbalAPI.Models.Bar", "Bar")
+                        .WithMany("Menus")
+                        .HasForeignKey("BarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bar");
+                });
+
+            modelBuilder.Entity("SalafAlmoustakbalAPI.Models.Bar", b =>
+                {
+                    b.Navigation("Menus");
+                });
+
+            modelBuilder.Entity("SalafAlmoustakbalAPI.Models.Client", b =>
+                {
+                    b.Navigation("dossiers");
                 });
 #pragma warning restore 612, 618
         }

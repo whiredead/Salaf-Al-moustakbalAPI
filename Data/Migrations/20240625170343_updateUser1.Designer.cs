@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SalafAlmoustakbalAPI.Data;
 
@@ -11,9 +12,11 @@ using SalafAlmoustakbalAPI.Data;
 namespace SalafAlmoustakbalAPI.Data.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    partial class IdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20240625170343_updateUser1")]
+    partial class updateUser1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -302,9 +305,8 @@ namespace SalafAlmoustakbalAPI.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("credit")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("credit")
+                        .HasColumnType("float");
 
                     b.Property<DateOnly>("dateOp")
                         .HasColumnType("date");
@@ -411,7 +413,7 @@ namespace SalafAlmoustakbalAPI.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly?>("DateNaissance")
+                    b.Property<DateOnly>("DateNaissance")
                         .HasColumnType("date");
 
                     b.Property<string>("Email")

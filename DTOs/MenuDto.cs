@@ -1,7 +1,5 @@
-﻿using ProjectPfe.Models;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace ProjectPfe.DTOs
+﻿
+namespace SalafAlmoustakbalAPI.DTOs
 {
     public class MenuDto
     {

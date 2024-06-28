@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Migrations\" />
     <Folder Include="wwwroot\" />
+    <Folder Include="wwwroot\profiles\" />
   </ItemGroup>
 
 </Project>

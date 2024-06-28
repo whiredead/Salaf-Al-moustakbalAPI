@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ProjectPfe.data.Migrations
+namespace SalafAlmoustakbalAPI.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class createUser : Migration
+    public partial class table : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -56,6 +56,33 @@ namespace ProjectPfe.data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Bars",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    hasChild = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bars", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Villes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Villes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -164,6 +191,114 @@ namespace ProjectPfe.data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Menus",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HasChild = table.Column<bool>(type: "bit", nullable: false),
+                    ParentId = table.Column<int>(type: "int", nullable: false),
+                    BarId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Menus", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Menus_Bars_BarId",
+                        column: x => x.BarId,
+                        principalTable: "Bars",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Domiciles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    des_ville = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    codePostal = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    adresse = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VilleId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Domiciles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Domiciles_Villes_VilleId",
+                        column: x => x.VilleId,
+                        principalTable: "Villes",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Clients",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    codeClient = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    nom = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    prenom = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    dateRelation = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    dateNaissance = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    lieuNaissance = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    civilite = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    sitFamiliale = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    nombreEnfants = table.Column<int>(type: "int", nullable: false),
+                    cin = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    dateDelivrance = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    codeImputation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    telephone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    statutOccupationLogement = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    domicileId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clients", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Clients_Domiciles_domicileId",
+                        column: x => x.domicileId,
+                        principalTable: "Domiciles",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Dossiers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    dateOp = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    premiereEcheance = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    derniereEcheance = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    echeance = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    credit = table.Column<double>(type: "float", nullable: false),
+                    periodicite = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    duree = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    reference = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    produit = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    agence = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    differe = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    assurance = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    codeComptable = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    cession = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClientId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dossiers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Dossiers_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -202,6 +337,30 @@ namespace ProjectPfe.data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clients_domicileId",
+                table: "Clients",
+                column: "domicileId",
+                unique: true,
+                filter: "[domicileId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Domiciles_VilleId",
+                table: "Domiciles",
+                column: "VilleId",
+                unique: true,
+                filter: "[VilleId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Dossiers_ClientId",
+                table: "Dossiers",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Menus_BarId",
+                table: "Menus",
+                column: "BarId");
         }
 
         /// <inheritdoc />
@@ -223,10 +382,28 @@ namespace ProjectPfe.data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Dossiers");
+
+            migrationBuilder.DropTable(
+                name: "Menus");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Clients");
+
+            migrationBuilder.DropTable(
+                name: "Bars");
+
+            migrationBuilder.DropTable(
+                name: "Domiciles");
+
+            migrationBuilder.DropTable(
+                name: "Villes");
         }
     }
 }
